@@ -50,6 +50,16 @@ describe('Locator test', () => {
         cy.contains('nb-card','Horizontal form').find('[type="submit"]')
         cy.contains('nb-card','Horizontal form').contains('Sign in')
 
+        //Cypress chains and Dom
+        cy.get('#inputEmail3')
+            .parents('nb-card')
+            .find('button')
+            .should('contain','Sign in')
+            .parents('form')
+            .find('.custom-checkbox')
+            .click()
+
+
         
 
         
