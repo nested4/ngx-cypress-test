@@ -58,10 +58,6 @@ describe('Locator test', () => {
             .parents('form')
             .find('.custom-checkbox')
             .click()
-
-
-        
-
-        
+            
     });
 });
