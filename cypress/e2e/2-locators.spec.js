@@ -1,3 +1,4 @@
+<reference types="cypress" />
 describe('Locator test', () => {
     it('first test', () => {
 
@@ -33,7 +34,7 @@ describe('Locator test', () => {
 
     });
 
-    it.only('second test', () => {
+    it('second test', () => {
         cy.visit('')
         cy.contains('Forms').click()
         cy.contains('Form Layouts').click()
@@ -59,5 +60,31 @@ describe('Locator test', () => {
             .find('.custom-checkbox')
             .click()
             
+    });
+
+    it.only('save subject of the command', () => {
+        cy.visit('')
+        cy.contains('Forms').click()
+        cy.contains('Form Layouts').click()
+
+        cy.contains('nb-card','Using the Grid').find('[for="inputEmail1"]').should('contain','Email')
+        cy.contains('nb-card','Using the Grid').find('[for="inputPassword2"]').should('contain','Password')
+
+        //CANT DO THINGS LIKE
+        // const usingTheGrid = cy.contains('nb-card','Using the Grid')
+        // usingTheGrid.find('[for="inputEmail1"]').should('contain','Email')
+        // usingTheGrid.find('[for="inputPassword2"]').should('contain','Password')
+
+        //1.Cypress alias
+        cy.contains('nb-card','Using the Grid').as('usingTheGrid')
+        cy.get('@usingTheGrid').find('[for="inputEmail1"]').should('contain','Email')
+        cy.get('@usingTheGrid').find('[for="inputPassword2"]').should('contain','Password')
+
+        //2. Cypress then() method wrap for use cypress chainable
+        cy.get('@usingTheGrid').find('[for="inputEmail1"]').then(usingTheGridForm=> {
+            cy.wrap(usingTheGridForm).find('[for="inputEmail1"]').should('contain','Email')
+            cy.wrap(usingTheGridForm).find('[for="inputPassword2"]').should('contain','Password')
+        })
+
     });
 });
